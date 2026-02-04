@@ -1,35 +1,11 @@
-<script setup>
-import {ref, computed} from 'vue'
-import home from './home.vue'
-import about from './about.vue'
-
-const routes = {
-  '/': home,
-  '/about': about
-}
-
-const currentPath = ref(window.location.hash)
-
-window.addEventListener('hashchange', () => {
-  currentPath.value = window.location.hash
-})
-
-const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || '/'] || NotFound
-})
-
-</script>
-
+<script setup></script>
 
 <template>
-  <a href="#/">Home</a> |
-  <a href="#/about">About</a>
-
-  <component :is="currentView"></component>
-
-
-  <v-icon icon = "mdi-home"></v-icon>
+  <h1>You did it!</h1>
+  <p>
+    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
+    documentation
+  </p>
 </template>
 
-
-
+<style scoped></style>
