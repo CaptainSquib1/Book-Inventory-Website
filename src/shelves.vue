@@ -7,7 +7,7 @@ const shelves = [
   {
     id: 1,
     name: 'Basement Shelf 1',
-    location: '123 Main St, Lemonville',
+    location: 'Random place that is not lemons',
     image: 'Bookshelves-Empty.png',
     genres: ['Fantasy', 'Classic'],
     content: ['The Hobbit', 'Narnia'],
@@ -16,7 +16,7 @@ const shelves = [
   {
     id: 2,
     name: 'Basement Shelf 2',
-    location: '123 Main St, Lemonville',
+    location: 'Random place that is not lemons',
     image: 'Bookshelves-Empty.png',
     genres: ['Sci-Fi', 'Dystopian'],
     content: ['Dune', 'Foundation', '1984'],
@@ -25,7 +25,7 @@ const shelves = [
   {
     id: 3,
     name: 'Basement Shelf 3',
-    location: '123 Main St, Lemonville',
+    location: 'Random place that is not lemons',
     image: 'Bookshelves-Empty.png',
     genres: ['Philosophy', 'Psychology'],
     content: ['Meditations', 'Beyond Good and Evil'],
@@ -34,7 +34,7 @@ const shelves = [
   {
     id: 4,
     name: 'Basement Shelf 4',
-    location: '123 Main St, Lemonville',
+    location: 'Random place that is not lemons',
     image: 'Bookshelves-Empty.png',
     genres: ['History', 'Biography'],
     content: ['Sapiens', 'The Wright Brothers'],
@@ -43,7 +43,7 @@ const shelves = [
   {
     id: 5,
     name: 'Basement Shelf 5',
-    location: '123 Main St, Lemonville',
+    location: 'Random place that is not lemons',
     image: 'Bookshelves-Empty.png',
     genres: ['Programming', 'Technology'],
     content: ['Clean Code', 'The Pragmatic Programmer'],
