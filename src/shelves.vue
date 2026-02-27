@@ -115,7 +115,7 @@ async function copyBookList(content) {
 
     <!--    Details Popup-->
     <v-dialog v-model="dialogOpen" max-width="650">
-      <v-card v-if="selected" class="bg-black">
+      <v-card v-if="selected" class="bg-black text-green-darken-3">
           <v-img :src="selected.image" height="220" cover/>
         <v-card-title class="text-h5">{{selected.name}}</v-card-title>
         <v-card-subtitle class="pb-0">{{selected.location}}</v-card-subtitle>

@@ -25,7 +25,7 @@ function getGenreColor(index) {
 </script>
 
 <template>
-  <v-card class="h-100">
+  <v-card class="h-100 text-green">
     <v-img v-if="image" :src="image" height="170" cover/>
     <v-card-title class="text-h6">{{ name }}</v-card-title>
     <v-card-subtitle>{{ description }}</v-card-subtitle>
