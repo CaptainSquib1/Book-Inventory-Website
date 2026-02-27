@@ -12,8 +12,8 @@ const emit = defineEmits(['view-details','open-shelf'])
 
 const genreColors = [
     'red',
-    'orange',
-    'yellow',
+    'orange-darken-2',
+    'yellow-darken-3',
     'green',
     'blue',
     'purple',

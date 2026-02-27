@@ -48,6 +48,15 @@ const shelves = [
     genres: ['Programming', 'Technology'],
     content: ['Clean Code', 'The Pragmatic Programmer'],
     description: 'Software development and tech books.'
+  },
+  {
+    id: 6,
+    name: 'Basement Shelf 6',
+    location: 'Random place that is not lemons',
+    image: 'Bookshelves-Empty.png',
+    genres: ['Sci-Fi', 'Dystopian', 'Random Stuff','More','more','mooooore','colooors', 'ooooo','yes', 'iam having too much fun with this'],
+    content: [],
+    description: 'Spooky'
   }
 ]
 
