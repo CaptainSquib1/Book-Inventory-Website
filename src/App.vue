@@ -1,7 +1,15 @@
 <script setup>
-import {ref, computed} from 'vue'
+import {ref, computed, shallowRef} from 'vue'
 import home from './home.vue'
 import shelves from './shelves.vue'
+
+import {
+  useDropZone,
+  useMouse,
+  useWindowSize,
+  useCountdown,
+  useDark,
+} from '@vueuse/core'
 
 const routes = {
   '/': home,
