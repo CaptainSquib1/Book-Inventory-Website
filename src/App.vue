@@ -27,7 +27,7 @@ const currentView = computed(() => {
   <v-app>
     <v-navigation-drawer v-model="drawer" :rail="rail"
                          permanent
-                         @click="rail = false">
+                         @click="rail = false" class="bg-brown text-black">
       <v-list-item prepend-icon="mdi-home" href="#/" title="Home" ></v-list-item>
       <v-list-item prepend-icon="mdi-book" href="#/shelves" title="Book Shelves" ></v-list-item>
     </v-navigation-drawer>
@@ -35,11 +35,11 @@ const currentView = computed(() => {
       <v-app-bar-nav-icon @click = "drawer = !drawer" icon="mdi-hamburger"></v-app-bar-nav-icon>
       <v-app-bar-title>Book Stand</v-app-bar-title>
     </v-app-bar>
-    <v-main>
+    <v-main class="bg-brown-darken-3">
       <component :is="currentView"></component>
 
     </v-main>
-    <v-footer app="true">Copyright 2026</v-footer>
+    <v-footer class="bg-brown-darken-3" app="true">Copyright 2026</v-footer>
 
   </v-app>
 </template>

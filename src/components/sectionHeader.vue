@@ -9,8 +9,8 @@ defineProps({
 <template>
   <div class="d-flex align-start flex-wrap ga-3 justify-space-between">
     <div>
-      <h1 class="text-h4 mb-1">{{ title }}</h1>
-      <div v-if="subtitle" class="text-body-1 text-medium-emphasis">
+      <h1 class="text-black text-h4 mb-1">{{ title }}</h1>
+      <div v-if="subtitle" class="text-white">
         {{ subtitle }}
       </div>
     </div>

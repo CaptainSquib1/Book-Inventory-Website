@@ -109,13 +109,13 @@ async function copyBookList(content) {
     </SectionHeader>
     <v-row class="mt-2">
       <v-col v-for="shelf in shelves" :key="shelf.id" cols="12" sm="6" md="4">
-        <ShelfCard :location="shelf.location" :description="shelf.description" :name="shelf.name" :image="shelf.image" :genres="shelf.genres" @view-details="openDetails(shelf)" ></ShelfCard>
+        <ShelfCard :location="shelf.location" :description="shelf.description" :name="shelf.name" :image="shelf.image" :genres="shelf.genres" @view-details="openDetails(shelf)"  class="bg-black"></ShelfCard>
       </v-col>
     </v-row>
 
     <!--    Details Popup-->
     <v-dialog v-model="dialogOpen" max-width="650">
-      <v-card v-if="selected">
+      <v-card v-if="selected" class="bg-black">
           <v-img :src="selected.image" height="220" cover/>
         <v-card-title class="text-h5">{{selected.name}}</v-card-title>
         <v-card-subtitle class="pb-0">{{selected.location}}</v-card-subtitle>

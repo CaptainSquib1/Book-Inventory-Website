@@ -41,7 +41,7 @@ const newestBooks = [
     <v-row>
       <v-col
           v-for="item in newestBooks" :key="item.title" cols="12" sm="6" md="4">
-        <v-card border="sm">
+        <v-card border="sm" class="bg-black text-green-darken-3">
           <v-img :src="item.image" height="180" cover></v-img>
           <v-card-title>{{ item.title }}</v-card-title>
           <v-card-subtitle>{{ item.author}}</v-card-subtitle>
