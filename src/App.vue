@@ -2,6 +2,7 @@
 import {ref, computed, shallowRef} from 'vue'
 import home from './home.vue'
 import shelves from './shelves.vue'
+import bookadd from './bookAdditions.vue'
 
 import {
   useDropZone,
@@ -14,6 +15,7 @@ import {
 const routes = {
   '/': home,
   '/shelves': shelves,
+  '/bookadd': bookadd,
 
 }
 
@@ -36,8 +38,9 @@ const currentView = computed(() => {
     <v-navigation-drawer v-model="drawer" :rail="rail"
                          permanent
                          @click="rail = false" class="bg-brown text-black">
-      <v-list-item prepend-icon="mdi-home" href="#/" title="Home" ></v-list-item>
-      <v-list-item prepend-icon="mdi-book" href="#/shelves" title="Book Shelves" ></v-list-item>
+      <v-list-item prepend-icon="mdi-home" href="#/" title="Home" @click = "drawer = !drawer"></v-list-item>
+      <v-list-item prepend-icon="mdi-book" href="#/shelves" title="Book Shelves" @click = "drawer = !drawer"></v-list-item>
+      <v-list-item prepend-icon="mdi-plus" href="#/bookadd" title="Add Book" @click = "drawer = !drawer"></v-list-item>
     </v-navigation-drawer>
     <v-app-bar color="orange-lighten-3">
       <v-app-bar-nav-icon @click = "drawer = !drawer" icon="mdi-hamburger"></v-app-bar-nav-icon>
