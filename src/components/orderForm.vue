@@ -1,81 +1,91 @@
 <script setup>
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 
 const props = defineProps({
   order: Object,
-  menu: Array,
-  locations: Array,
 })
 
-const emit = defineEmits(["update:order","submit"])
+const emit = defineEmits(["update:order", "submit"])
 
 const step = ref(1)
 const formUser = ref(null)
-const formBook = ref(null)
+const shelves = ref([])
+const books = ref([])
 
-function setField(key,value){
-  emit("update:order",{...props.order,[key]:value})
+function setField(key, value) {
+  emit("update:order", { ...props.order, [key]: value })
 }
 
-async function nextval(){
-  const r = await formUser.value.validate()
-  if(r.valid) step.value=2
+async function nextStep1() {
+  const response = await formUser.value.validate()
+  if (response.valid) step.value = 2
 }
-function next() {
-  step.value += 1
-}
-function back(){
-  step.value -= 1
-}
+
+function next() { step.value += 1 }
+function back() { step.value -= 1 }
+
+onMounted(async () => {
+  // Fetch shelves for the dropdown
+  const shelvesRes = await fetch('http://localhost:3000/shelves')
+  shelves.value = await shelvesRes.json()
+
+  // Fetch books for the dropdown
+  const booksRes = await fetch('http://localhost:3000/books')
+  books.value = await booksRes.json()
+})
 </script>
 
 <template>
   <v-stepper v-model="step">
     <v-stepper-header>
-      <v-stepper-item :value="1" title="User Name"/>
-      <v-stepper-item :value="2" title="Function"/>
-      <v-stepper-item :value="3" title="Books"/>
+      <v-stepper-item :value="1" title="User Name" />
+      <v-stepper-item :value="2" title="Select Shelf" />
+      <v-stepper-item :value="3" title="Select Book" />
     </v-stepper-header>
 
     <v-stepper-window>
+
+      <!-- Step 1: User Name -->
       <v-stepper-window-item :value="1">
         <v-form ref="formUser">
           <v-text-field
               :model-value="order.userName"
-              @update:model-value="v=>setField('userName',v)"
-              label="Name"
+              @update:model-value="v => setField('userName', v)"
+              label="Your Name"
+              :rules="[v => !!v || 'Name is required']"
           />
-          <v-btn :disabled="!order.userName" @click="nextval">Next</v-btn>
+          <v-btn :disabled="!order.userName" @click="nextStep1">Next</v-btn>
         </v-form>
       </v-stepper-window-item>
 
+      <!-- Step 2: Pick a shelf -->
       <v-stepper-window-item :value="2">
         <v-select
-            :items="menu"
-            item-title="name"
+            :items="shelves"
+            item-title="shelf_name"
             item-value="id"
-            :model-value="order.items"
-            @update:model-value="v=>setField('items',v)"
+            :model-value="order.shelfId"
+            @update:model-value="v => setField('shelfId', v)"
+            label="Select a Shelf"
         />
-
-        <v-btn :disabled="!order.items" @click="next">Next</v-btn>
         <v-btn @click="back">Back</v-btn>
+        <v-btn :disabled="!order.shelfId" @click="next">Next</v-btn>
       </v-stepper-window-item>
 
+      <!-- Step 3: Pick a book -->
       <v-stepper-window-item :value="3">
-        <v-form ref="formBook">
-          <v-text-field
-              v=""
-              :model-value="order.books"
-              @update:model-value="v=>setField('books',v)"
-              label="Books"/>
-
-
-          <v-btn @click="back">Back</v-btn>
-          <v-btn :disabled="!order.books" @click="$emit('submit')">
-            Review & Submit
-          </v-btn>
-        </v-form>
+        <v-select
+            :items="books"
+            item-title="name"
+            item-value="id"
+            :model-value="order.bookId"
+            @update:model-value="v => setField('bookId', v)"
+            label="Select a Book"
+        />
+        <v-btn @click="back">Back</v-btn>
+        <v-btn :disabled="!order.bookId" @click="$emit('submit')">
+          Review & Submit
+        </v-btn>
       </v-stepper-window-item>
 
     </v-stepper-window>

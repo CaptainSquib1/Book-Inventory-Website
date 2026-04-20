@@ -3,13 +3,19 @@ import { computed } from 'vue'
 const props = defineProps({
   open:Boolean,
   order:Object,
-  menu: Array,
+  shelves: Array,
+  books: Array,
 })
 
 const emit = defineEmits(["update:open","confirm"])
 
-const actionName = computed(() => {
-  const found = props.menu.find(m=>m.id === props.order.items)
+const shelfName = computed(() => {
+  const found = props.shelves?.find(s => s.id === props.order.shelfId)
+  return found ? found.shelf_name : null
+})
+
+const bookName = computed(() => {
+  const found = props.books?.find(b => b.id === props.order.bookId)
   return found ? found.name : null
 })
 </script>
@@ -24,8 +30,8 @@ const actionName = computed(() => {
       <v-card-text>
         <v-list>
           <v-list-item title="Name:">{{ order.userName }}</v-list-item>
-          <v-list-item title="Action:">{{ actionName }}</v-list-item>
-          <v-list-item title="Books:">{{ order.books }}</v-list-item>
+          <v-list-item title="Shelf:">{{ shelfName }}</v-list-item>
+          <v-list-item title="Book:">{{ bookName }}</v-list-item>
         </v-list>
       </v-card-text>
       <v-card-actions>

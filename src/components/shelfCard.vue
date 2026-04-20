@@ -1,9 +1,7 @@
 <script setup>
 const shelves = defineProps({
   name: {type: String, required: true},
-  location: {type: String, required: true},
-  description: {type: String, required: true},
-  content:{type:Array, default:() => ["Book o' Cheese", "Book o' Fries"]},
+  description: {type: String, default: ''},
   image: {type: String, default:''},
   genres: {type: Array, default: () => []},
 })
@@ -30,10 +28,6 @@ function getGenreColor(index) {
     <v-card-title class="text-h6">{{ name }}</v-card-title>
     <v-card-subtitle>{{ description }}</v-card-subtitle>
     <v-card-text>
-      <div class="text-body-2 mb-3">
-        <v-icon size="small" class="mr-1">mdi-map-marker</v-icon>
-        {{ location }}
-      </div>
       <div>
         <v-chip v-for="(genre, i) in genres" :key="genre" :color="getGenreColor(i)" class="mr-2 mb-2" size="small">{{ genre }}</v-chip>
       </div>
