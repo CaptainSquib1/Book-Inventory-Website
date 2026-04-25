@@ -1,5 +1,5 @@
 <script setup>
-import {ref, computed, onMounted} from "vue"
+import {ref, onMounted} from "vue"
 import SectionHeader from "./components/sectionHeader.vue"
 import AddForm from "./components/orderForm.vue"
 import AddSummary from "./components/orderSummary.vue"
@@ -15,12 +15,27 @@ onMounted(async () => {
   const booksResponse = await fetch('http://localhost:3000/books')
   books.value = await booksResponse.json()
 })
+async function fetchData() {
+  const shelvesResponse = await fetch('http://localhost:3000/shelves')
+  shelves.value = await shelvesResponse.json()
 
-const order = ref({
+  const booksResponse = await fetch('http://localhost:3000/books')
+  books.value = await booksResponse.json()
+}
+
+const emptyOrder = {
   userName: "",
+  process: null,
   shelfId: null,
   bookId: null,
-})
+  bookName: "",
+  bookAuthor: "",
+  bookDescription: "",
+  bookGenre: "",
+  bookImage: "",
+}
+
+const order = ref({ ...emptyOrder })
 
 const dialogOpen = ref(false)
 const snackbarOpen = ref(false)
@@ -32,29 +47,69 @@ function openConfirm() {
 
 async function confirmAddition() {
   try {
-    await fetch(`http://localhost:3000/shelves/${order.value.shelfId}/books`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ bookId: order.value.bookId })
-    })
-    dialogOpen.value = false
-    snackbarText.value = "Book Added!"
-    snackbarOpen.value = true
-    order.value = { userName: "", shelfId: null, bookId: null } // reset form
+    let response
+    if (order.value.process === "placeBook") {
+      response = await fetch(`http://localhost:3000/shelves/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ shelfId: order.value.shelfId, bookId: order.value.bookId })
+      })
+    }
+
+    else if (order.value.process === "unplaceBook") {
+      response = await fetch(`http://localhost:3000/shelves/`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ shelfId: order.value.shelfId, bookId: order.value.bookId })
+      })
+    }
+
+    else if (order.value.process === "addBook") {
+      response = await fetch(`http://localhost:3000/books/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bookName: order.value.bookName,
+          author: order.value.bookAuthor,
+          description: order.value.bookDescription,
+          genre: order.value.bookGenre,
+          image: order.value.bookImage,
+        })
+      })
+    }
+    if (response.ok) {
+      const successMessages = {
+        placeBook: "Book placed on shelf!",
+        unplaceBook: "Book removed from shelf!",
+        addBook: "Book added to library!",
+      }
+      snackbarText.value = successMessages[order.value.process]
+      dialogOpen.value = false
+
+    }
+    else {
+      const data = await response.json()
+      snackbarText.value = data.error ?? "Something went wrong!"
+    }
+
   } catch (error) {
-    snackbarText.value = "Failed to add book!"
-    snackbarOpen.value = true
+    snackbarText.value = "Something went wrong!"
   }
+  snackbarOpen.value = true
+  setTimeout(() => {
+    window.location.reload()
+  }, 1500)
 }
 </script>
 
 <template>
   <v-container>
-    <SectionHeader title="Put a Book on a Shelf" />
+    <SectionHeader title="Manage the Library" />
 
     <v-row>
       <v-col cols="12" md="8">
         <AddForm
+            ref="addForm"
             v-model:order="order"
             @submit="openConfirm"
         />
@@ -72,5 +127,8 @@ async function confirmAddition() {
         :books="books"
         @confirm="confirmAddition"
     />
+    <v-snackbar v-model="snackbarOpen" :timeout="3000">
+      {{ snackbarText }}
+    </v-snackbar>
   </v-container>
 </template>
