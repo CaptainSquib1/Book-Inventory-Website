@@ -5,7 +5,7 @@ const books = ref([])
 
 onMounted(async () => {
 
-  const booksResponse = await fetch('http://localhost:3000/books')
+  const booksResponse = await fetch('http://172.238.188.82:3000/books')
   books.value = await booksResponse.json()
 
 })
