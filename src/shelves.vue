@@ -6,7 +6,7 @@ import ShelfCard from "./components/shelfCard.vue"
 const shelves = ref([])
 
 onMounted(async () => {
-  const res = await fetch('http://localhost:3000/shelves')
+  const res = await fetch('/api/shelves')
   shelves.value = await res.json()
 })
 

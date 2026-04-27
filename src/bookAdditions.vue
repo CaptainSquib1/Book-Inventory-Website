@@ -9,17 +9,17 @@ const shelves = ref([])
 const books = ref([])
 
 onMounted(async () => {
-  const shelvesResponse = await fetch('http://172.238.188.82:3000/shelves')
+  const shelvesResponse = await fetch('/api/shelves')
   shelves.value = await shelvesResponse.json()
 
-  const booksResponse = await fetch('http://172.238.188.82:3000/books')
+  const booksResponse = await fetch('/api/books')
   books.value = await booksResponse.json()
 })
 async function fetchData() {
-  const shelvesResponse = await fetch('http://172.238.188.82:3000/shelves')
+  const shelvesResponse = await fetch('/api/shelves')
   shelves.value = await shelvesResponse.json()
 
-  const booksResponse = await fetch('http://172.238.188.82:3000/books')
+  const booksResponse = await fetch('/api/books')
   books.value = await booksResponse.json()
 }
 
@@ -49,7 +49,7 @@ async function confirmAddition() {
   try {
     let response
     if (order.value.process === "placeBook") {
-      response = await fetch(`http://172.238.188.82:3000/shelves/`, {
+      response = await fetch(`/api/shelves/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ shelfId: order.value.shelfId, bookId: order.value.bookId })
@@ -57,7 +57,7 @@ async function confirmAddition() {
     }
 
     else if (order.value.process === "unplaceBook") {
-      response = await fetch(`http://172.238.188.82:3000/shelves/`, {
+      response = await fetch(`/api/shelves/`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ shelfId: order.value.shelfId, bookId: order.value.bookId })
@@ -65,7 +65,7 @@ async function confirmAddition() {
     }
 
     else if (order.value.process === "addBook") {
-      response = await fetch(`http://172.238.188.82:3000/books/`, {
+      response = await fetch(`/api/books/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
