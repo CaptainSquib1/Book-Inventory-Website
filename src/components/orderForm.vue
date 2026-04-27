@@ -37,8 +37,8 @@ function back() { step.value -= 1 }
 
 onMounted(async () => {
   const [shelvesRes, booksRes] = await Promise.all([
-    fetch('http://localhost:3000/shelves'),
-    fetch('http://localhost:3000/books'),
+    fetch('/api/shelves'),
+    fetch('/api/books'),
   ])
   shelves.value = await shelvesRes.json()
   books.value = await booksRes.json()
