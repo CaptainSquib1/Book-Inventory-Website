@@ -87,12 +87,12 @@ const genres = computed(() => [
 </script>
 
 <template>
-  <v-stepper v-model="step">
+  <v-stepper v-model="step" bg-color="green-lighten-3">
     <v-stepper-header>
-      <v-stepper-item :value="1" title="Your Name" />
-      <v-stepper-item :value="2" title="Action" />
-      <v-stepper-item :value="3" :title="order.process === 'addBook' ? 'Book Details' : 'Select Book'" />
-      <v-stepper-item v-if="order.process === 'addBook'" :value="4" title="More Details" />
+      <v-stepper-item :value="1" title="Your Name" color="orange-lighten-2"/>
+      <v-stepper-item :value="2" title="Action" color="orange-lighten-2"/>
+      <v-stepper-item :value="3" :title="order.process === 'addBook' ? 'Book Details' : 'Select Book'" color="orange-lighten-2"/>
+      <v-stepper-item v-if="order.process === 'addBook'" :value="4" title="More Details" color="orange-lighten-2"/>
     </v-stepper-header>
 
     <v-stepper-window>
@@ -105,8 +105,9 @@ const genres = computed(() => [
               @update:model-value="v => setField('userName', v)"
               label="Your Name"
               :rules="[v => !!v || 'Name is required']"
+              bg-color="orange-lighten-3"
           />
-          <v-btn :disabled="!order.userName" @click="next">Next</v-btn>
+          <v-btn :disabled="!order.userName" @click="next" color="orange-lighten-3">Next</v-btn>
         </v-form>
       </v-stepper-window-item>
 
@@ -119,15 +120,17 @@ const genres = computed(() => [
             :model-value="order.process"
             @update:model-value="setProcess"
             label="What would you like to do?"
+            bg-color="orange-lighten-3"
         />
-        <v-btn @click="back">Back</v-btn>
-        <v-btn :disabled="!order.process" @click="next">Next</v-btn>
+        <v-btn @click="back" color="red-lighten-3">Back</v-btn>
+        <v-btn :disabled="!order.process" @click="next" color="orange-lighten-3">Next</v-btn>
       </v-stepper-window-item>
 
       <!-- Step 3a: placeBook / unplaceBook pick shelf then book -->
       <v-stepper-window-item
           v-if="order.process === 'placeBook' || order.process === 'unplaceBook'"
           :value="3"
+          bg-color="orange-lighten-3"
       >
         <v-select
             :items="shelves"
@@ -136,6 +139,7 @@ const genres = computed(() => [
             :model-value="order.shelfId"
             @update:model-value="v => setField('shelfId', v)"
             label="Select a Shelf"
+            bg-color="orange-lighten-3"
         />
 
         <!-- placeBook: books not on this shelf -->
@@ -149,6 +153,7 @@ const genres = computed(() => [
             label="Select a Book to Place"
             :disabled="!order.shelfId"
             :no-data-text="order.shelfId ? 'All books are already on this shelf' : 'Select a shelf first'"
+            bg-color="orange-lighten-3"
         />
 
         <!-- unplaceBook: books on this shelf -->
@@ -162,10 +167,11 @@ const genres = computed(() => [
             label="Select a Book to Remove"
             :disabled="!order.shelfId"
             :no-data-text="order.shelfId ? 'No books on this shelf' : 'Select a shelf first'"
+            bg-color="orange-lighten-3"
         />
 
-        <v-btn @click="back">Back</v-btn>
-        <v-btn :disabled="!step3Valid" @click="$emit('submit')">
+        <v-btn @click="back" color="red-lighten-3">Back</v-btn>
+        <v-btn :disabled="!step3Valid" @click="$emit('submit')" color="orange-lighten-3">
           Review & Submit
         </v-btn>
       </v-stepper-window-item>
@@ -177,15 +183,17 @@ const genres = computed(() => [
             @update:model-value="v => setField('bookName', v)"
             label="Book Title"
             :rules="[v => !!v || 'Title is required']"
+            bg-color="orange-lighten-3"
         />
         <v-text-field
             :model-value="order.bookAuthor"
             @update:model-value="v => setField('bookAuthor', v)"
             label="Author"
             :rules="[v => !!v || 'Author is required']"
+            bg-color="orange-lighten-3"
         />
-        <v-btn @click="back">Back</v-btn>
-        <v-btn :disabled="!step3Valid" @click="next">Next</v-btn>
+        <v-btn @click="back" color="red-lighten-3">Back</v-btn>
+        <v-btn :disabled="!step3Valid" @click="next" color="orange-lighten-3">Next</v-btn>
       </v-stepper-window-item>
 
       <!-- Step 4: addBook optional fields -->
@@ -194,20 +202,23 @@ const genres = computed(() => [
             :model-value="order.bookDescription"
             @update:model-value="v => setField('bookDescription', v)"
             label="Description (optional)"
+            bg-color="orange-lighten-3"
         />
         <v-combobox
             :model-value="order.bookGenre"
             @update:model-value="v => setField('bookGenre', v)"
             label="Genre (optional)"
             :items="genres"
+            bg-color="orange-lighten-3"
         />
         <v-text-field
             :model-value="order.bookImage"
             @update:model-value="v => setField('bookImage', v)"
             label="Image file name (optional)"
+            bg-color="orange-lighten-3"
         />
-        <v-btn @click="back">Back</v-btn>
-        <v-btn @click="$emit('submit')">Review & Submit</v-btn>
+        <v-btn @click="back" color="red-lighten-3">Back</v-btn>
+        <v-btn @click="$emit('submit')" color="orange-lighten-3">Review & Submit</v-btn>
       </v-stepper-window-item>
 
     </v-stepper-window>

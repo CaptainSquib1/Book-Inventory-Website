@@ -23,10 +23,10 @@ const bookAuthor = computed(() => {
 </script>
 
 <template>
-  <v-card>
+  <v-card color="green-lighten-3" >
     <v-card-title>Summary</v-card-title>
-    <v-list>
-      <v-list-item title="User" :subtitle="order.userName"/>
+    <v-list bg-color="orange-lighten-3">
+      <v-list-item title="User" :subtitle="order.userName" />
       <v-list-item title="Shelf" :subtitle="shelfName"/>
       <v-list-item title="Book" :subtitle="bookName"/>
       <v-list-item title="Author" :subtitle="bookAuthor"/>
