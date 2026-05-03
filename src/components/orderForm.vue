@@ -49,7 +49,7 @@ onMounted(async () => {
 const shelfBooks = computed(() => {
   if (!props.order.shelfId) return []
   const shelf = shelves.value.find(s => s.id === props.order.shelfId)
-  if (!shelf) return []
+  if (!shelf) {return []}
   if (!shelf.books) {return []}
   return shelf.books
 })
@@ -104,7 +104,7 @@ const genres = computed(() => [
               :model-value="order.userName"
               @update:model-value="v => setField('userName', v)"
               label="Your Name"
-              :rules="[v => !!v || 'Name is required']"
+              :rules="[v => v || 'Name is required']"
               bg-color="orange-lighten-3"
           />
           <v-btn :disabled="!order.userName" @click="next" color="orange-lighten-3">Next</v-btn>
@@ -182,14 +182,14 @@ const genres = computed(() => [
             :model-value="order.bookName"
             @update:model-value="v => setField('bookName', v)"
             label="Book Title"
-            :rules="[v => !!v || 'Title is required']"
+            :rules="[v => v || 'Title is required']"
             bg-color="orange-lighten-3"
         />
         <v-text-field
             :model-value="order.bookAuthor"
             @update:model-value="v => setField('bookAuthor', v)"
             label="Author"
-            :rules="[v => !!v || 'Author is required']"
+            :rules="[v => v || 'Author is required']"
             bg-color="orange-lighten-3"
         />
         <v-btn @click="back" color="red-lighten-3">Back</v-btn>
